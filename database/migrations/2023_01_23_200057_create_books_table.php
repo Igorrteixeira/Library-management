@@ -14,15 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->id('book_id');
+            $table->id();
+            $table->foreignId('genre_id')->constrained("genres");
             $table->string('book_name')->nullable();
             $table->string('author')->nullable();
             $table->boolean('available')->nullable();
-            $table->integer('book_registration')->nullable();
-            $table->foreignId('genre_id')
-            ->constrained()
-            ->onDelete('CASCADE')
-            ->onUpdate('CASCADE');
+            $table->integer('book_registration')->nullable()->unique();
             $table->timestamps();
 
         });

@@ -1,4 +1,4 @@
-<?php
+        <?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,17 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('book_loans', function (Blueprint $table) {
-            $table->uuid('book_loans_id')->primary();
-            $table->date('delivery_date')->nullable();
-            $table->boolean("loan_status");
-            $table->foreignId('user_id')
-            ->constrained()
+            $table->id();
+            $table->foreignUuid('user_id')
+            ->constrained(column:'id')
             ->onDelete('CASCADE')
             ->onUpdate('CASCADE');
             $table->foreignId('book_id')
-            ->constrained()
-            ->onDelete('CASCADE')
+            ->constrained('books')
             ->onUpdate('CASCADE');
+            $table->date('delivery_date')->nullable();
+            $table->boolean("loan_status");
             $table->timestamps();
 
 

@@ -6,12 +6,22 @@
 
         <title>Laravel</title>
 
+        {{$date = fake()->date();}}
+        <br>
+        {{$currentDate = date('y-m-d');}}
+        <br>
+        <br>
+        {{$timeDate = strtotime($date);}}
+        <br>
+        {{$timeCeurrentDate = strtotime($currentDate);}}
+
+
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <style>
-            
+
         </style>
 
         <style>
