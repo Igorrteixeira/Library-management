@@ -17,14 +17,12 @@ class BookFactory extends Factory
      */
     public function definition()
     {
-        $registration = rand(30100,30500);
-
         return [
             'genre_id'=> Genre::all()->random()->id,
             'book_name' => fake()->word(),
             'author' => fake()->name(),
             'available' => false,
-            'book_registration' => $registration,
+            'book_registration' => fake()->unique()->randomNumber(5, true),
 
         ];
     }
