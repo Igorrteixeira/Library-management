@@ -12,13 +12,16 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('createUser');
+        $users = ModelsUser::all();
+        return view('allUsers',[
+            'users'=>$users
+        ]);
     }
 
 
     public function create()
     {
-
+        return view('createUsers');
     }
 
     public function store(Request $request)
@@ -29,7 +32,7 @@ class UserController extends Controller
             'email'=>'required|email:rfc,dns|unique:users,email'
         ]);
         ModelsUser::create($input);
-        return  Redirect::route('user');
+        return  Redirect::route('user.index');
 
     }
 
@@ -39,26 +42,30 @@ class UserController extends Controller
 
     }
 
-
-    public function edit($id)
+    public function edit(ModelsUser $user)
     {
-        //
+        return view('updateUser',[
+            'user'=> $user
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, ModelsUser $user)
     {
-        $user = ModelsUser::findOrFail($id);
-        $user->fill($request);
+        $input = $request->validate([
+            'user_name'=>'required|string|min:3|max:40',
+            'registration_number'=>'required|min:5|max:6|',
+            'email'=>'required|email:rfc,dns'
+        ]);
+        $user->fill($input);
         $user->save();
-        return  Redirect::route('create.create');
+        return  Redirect::route('user.index');
 
     }
 
-
-    public function destroy($id)
+    public function destroy(ModelsUser $id)
     {
-        $user = ModelsUser::findOrFail($id);
-        $user->delete();
-        return Redirect::route('create.user');
+        $id->delete();
+        return Redirect::route('user.index')
+        ->with('sucess',"Deleteado com sucesso");
     }
 }

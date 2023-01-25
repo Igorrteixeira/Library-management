@@ -1,16 +1,25 @@
 @extends('layout.app')
-@section('title','Create user')
+@section('title','Update user')
 @section('content')
 
+@vite(['resources/css/createUser.css'])
+
 <div >
-    <form action={{route('create.store')}} method="POST">
+
+    <form
+    method="POST"
+    enctype="multipart/form-data"
+    action={{route('user.update',$user->id)}}
+     >
     @csrf
+    @method('put')
+      <h1>Update User</h1>
         <label for="name">Nome</label>
             <input
             type="text"
             placeholder="Digite o nome do cliente..."
             name="user_name"
-            value={{old('user_name')}}
+            value={{$user->user_name}}
             >
             @error('user_name')
             {{$message}}
@@ -21,7 +30,7 @@
             type="email"
             placeholder="Digite o email..."
             name="email"
-            value={{old('email')}}
+            value={{$user->email}}
             >
             @error('email')
             {{$message}}
@@ -32,13 +41,14 @@
             type="text"
             placeholder="Digite o numero de registro..."
             name="registration_number"
-            value={{old('registration_number')}}
+            value={{$user->registration_number}}
             >
             @error('registration_number')
             {{$message}}
             @enderror
 
-            <button>Criar usuario</button>
+            <button type="submit">Alterar usuario</button>
         </form>
+
 </div>
 @endsection()
