@@ -3,25 +3,23 @@
 @section('content')
 
 <div>
-    Loooannnnsss
+    <a href={{route('loan.create')}}>Emprestimos</a>
     @include('components.message')
-{{--
-    @foreach ($books as $book)
+
+    @foreach ($loans as $loan)
     <div>
-        <p>{{$book->book_name}}</p>
-        <p>{{$book->author}}</p>
-        <p>{{$book->genre->genre}}</p>
-        <p>{{!$book->available ?"Emprestado" : "Disponivel"}}</p>
-        <a href={{route('book.edit',$book->id)}}>Alterar</a>
+        <p>{{$loan->delivery_date}}</p>
+
+        {{-- <a href={{route('book.edit',$book->id)}}>Alterar</a>
 
         <form method="POST" enctype="multipart/form-data"
         action={{route('book.destroy',$book->id)}}>
         @csrf
         @method('DELETE')
             <button type="submit">Delete</button>
-        </form>
+        </form> --}}
 
     </div>
-    @endforeach --}}
+    @endforeach
 </div>
 @endsection()

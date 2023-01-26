@@ -4,12 +4,13 @@
 
 <div>
     @include('components.message')
-
+    <a href={{route('book.create')}}>Adicionar Livro</a>
     @foreach ($books as $book)
     <div>
         <p>{{$book->book_name}}</p>
         <p>{{$book->author}}</p>
         <p>{{$book->genre->genre}}</p>
+        <p>{{$book->book_registration}}</p>
         <p>{{!$book->available ?"Emprestado" : "Disponivel"}}</p>
         <a href={{route('book.edit',$book->id)}}>Alterar</a>
 

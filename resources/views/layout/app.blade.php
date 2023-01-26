@@ -14,9 +14,9 @@
     <body class="app">
         <header>
             <a href={{route('book.index')}}>Home</a>
-            <a href={{route('book.create')}}>Adicionar Livro</a>
             <a href={{route('user.index')}}>Usuarios</a>
-            
+            <a href={{route('loan.index')}}>Emprestimos</a>
+
 
             Gerenciamento de biblioteca</p></header>
 
