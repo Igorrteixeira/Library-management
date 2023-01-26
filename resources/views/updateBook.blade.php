@@ -55,7 +55,7 @@
                 {{$message}}
                 @enderror
         </div>
-        
+
         <select name="available" >
             <option value=0>Emprestado </option>
             <option value=1>Disponivel</option>

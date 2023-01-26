@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoanFormRequest;
 use App\Models\Book as ModelBook;
 use App\Models\BookLoan as ModelLoan;
 use App\Models\User as ModelUser;
-use Error;
-use Exception;
-use Illuminate\Auth\Events\Validated;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class LoanController extends Controller
@@ -17,7 +14,7 @@ class LoanController extends Controller
 
     public function index()
     {
-        $loans = ModelLoan::all();
+        $loans = ModelLoan::with('book','user')->get();
         return view('allLoan',[
             'loans'=>$loans
         ]);
@@ -28,32 +25,22 @@ class LoanController extends Controller
         return view('createLoan');
     }
 
-    public function store(Request $request)
+    public function store(LoanFormRequest $request)
     {
+        $user = ModelUser::where('registration_number',$request['user_registration'])->first();
+        $book = ModelBook::where('book_registration',$request['book_registration'])->first();
 
-        $input = $request->validate([
-            'user_registration'=>'required|',
-            'book_registration'=>'required',
-            'delivery_date'=>'date|required',
+        ModelLoan::create([
+            'user_id'=>$user->id,
+            'book_id'=>$book->id,
+            'delivery_date'=>$request['delivery_date'],
         ]);
 
-        $user = ModelUser::where('registration_number',$input['user_registration'])->first();
-        
-        $book = ModelBook::where('book_registration',$input['book_registration'])->first();
+        $book->available = 0;
+        $book->save();
 
-        dd($book->id);
-        // ModelLoan::created([
-        //     'user_id'=>$user->id,
-        //     'book_id'=>$book->id,
-        //     'delivery_date'=>$input['delivery_date'],
-        //     "loan_status"=>false
-        // ]);
-
-        // $book->available = false;
-        // $book->refresh();
-
-        // return Redirect::route('loan.index')
-        // ->with('sucess',"Criado com sucesso");
+        return Redirect::route('loan.index')
+        ->with('sucess',"Criado com sucesso");
 
     }
 
@@ -62,17 +49,28 @@ class LoanController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(ModelLoan $loan)
     {
-
+        $loan->with('user','book')->find($loan);
+        return view('updateLoan',[
+            'loan'=>$loan
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(LoanFormRequest $request, ModelLoan $loan)
     {
-        //
+        $user = ModelUser::where('registration_number',$request['user_registration'])->first();
+        $book = ModelBook::where('book_registration',$request['book_registration'])->first();
+
+        $loan->user_id = $user->id;
+        $loan->book_id = $book->id;
+        $loan->delivery_date = $request['delivery_date'];
+        $loan->save();
+        return Redirect::route('loan.index')
+        ->with('sucess',"Alterado com sucesso");
     }
 
-    public function destroy($id)
+    public function destroy(ModelLoan $id)
     {
         $id->delete();
         return Redirect::route('loan.index')

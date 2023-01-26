@@ -10,11 +10,13 @@ class BookLoan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'book_id',
         'delivery_date',
         'loan_status',
     ];
 
-    public function client()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

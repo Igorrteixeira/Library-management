@@ -12,14 +12,20 @@ use Illuminate\Support\Facades\Redirect;
 class BookController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $books = ModelBook::with('genre')->get();
+        $genres = Genre::all();
+        $search = $request->search;
+        $books = ModelBook::with('genre')
+        ->where(function($query) use ($search){
+            if($search) $query->where('genre_id',$search);
+        })->get();
+
         return view('allBooks',[
-            'books'=>$books
+            'books'=>$books,
+            'genres'=>$genres
         ]);
     }
-
 
     public function create()
     {

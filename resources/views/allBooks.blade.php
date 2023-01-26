@@ -5,6 +5,14 @@
 <div>
     @include('components.message')
     <a href={{route('book.create')}}>Adicionar Livro</a>
+
+    <form action={{route('book.index')}} method="GET">
+        <button name="search">Todos</button>
+        @foreach ($genres as $genre)
+        <button value={{$genre->id}} name="search">{{$genre->genre}}</button>
+        @endforeach
+    </form>
+
     @foreach ($books as $book)
     <div>
         <p>{{$book->book_name}}</p>

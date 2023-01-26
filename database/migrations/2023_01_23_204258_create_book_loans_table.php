@@ -21,7 +21,8 @@ return new class extends Migration
             ->onUpdate('CASCADE');
             $table->foreignId('book_id')
             ->constrained('books')
-            ->onUpdate('CASCADE');
+            ->onUpdate('CASCADE')
+            ->onDelete('CASCADE');
             $table->date('delivery_date')->nullable();
             $table->boolean("loan_status")->default(false);
             $table->timestamps();
