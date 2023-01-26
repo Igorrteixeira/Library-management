@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('genre_id')->constrained("genres");
             $table->string('book_name')->nullable();
             $table->string('author')->nullable();
-            $table->boolean('available')->nullable();
+            $table->boolean('available')->nullable()->default(true);
             $table->integer('book_registration')->nullable()->unique();
             $table->timestamps();
 

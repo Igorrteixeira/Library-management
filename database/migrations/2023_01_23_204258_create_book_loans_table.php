@@ -23,9 +23,8 @@ return new class extends Migration
             ->constrained('books')
             ->onUpdate('CASCADE');
             $table->date('delivery_date')->nullable();
-            $table->boolean("loan_status");
+            $table->boolean("loan_status")->default(false);
             $table->timestamps();
-
 
         });
     }

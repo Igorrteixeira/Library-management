@@ -12,7 +12,13 @@
         @stack('styles')
     </head>
     <body class="app">
-        <header>Gerenciamento de biblioteca</p></header>
+        <header>
+            <a href={{route('book.index')}}>Home</a>
+            <a href={{route('book.create')}}>Adicionar Livro</a>
+            <a href={{route('user.index')}}>Usuarios</a>
+            
+
+            Gerenciamento de biblioteca</p></header>
 
         @yield('content')
 

@@ -21,7 +21,7 @@ class BookFactory extends Factory
             'genre_id'=> Genre::all()->random()->id,
             'book_name' => fake()->word(),
             'author' => fake()->name(),
-            'available' => false,
+            'available' => true,
             'book_registration' => fake()->unique()->randomNumber(5, true),
 
         ];

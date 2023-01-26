@@ -32,8 +32,8 @@ class UserController extends Controller
             'email'=>'required|email:rfc,dns|unique:users,email'
         ]);
         ModelsUser::create($input);
-        return  Redirect::route('user.index');
-
+        return  Redirect::route('user.index')
+        ->with('sucess',"Criado com sucesso");
     }
 
     public function show($id)
@@ -58,7 +58,8 @@ class UserController extends Controller
         ]);
         $user->fill($input);
         $user->save();
-        return  Redirect::route('user.index');
+        return  Redirect::route('user.index')
+        ->with('sucess',"Alterado com sucesso");
 
     }
 
@@ -66,6 +67,6 @@ class UserController extends Controller
     {
         $id->delete();
         return Redirect::route('user.index')
-        ->with('sucess',"Deleteado com sucesso");
+        ->with('sucess',"Deletado com sucesso");
     }
 }
