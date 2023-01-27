@@ -16,7 +16,7 @@ class GenreSeeder extends Seeder
     public function run()
     {
 
-        Genre::factory(8)->create()
+        // Genre::factory(8)->create()
         DB::table('genres')->insert(
             [
                 [
