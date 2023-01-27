@@ -38,15 +38,8 @@ class LoanController extends Controller
 
         $book->available = 0;
         $book->save();
-
         return Redirect::route('loan.index')
         ->with('sucess',"Criado com sucesso");
-
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit(ModelLoan $loan)
@@ -61,10 +54,10 @@ class LoanController extends Controller
     {
         $user = ModelUser::where('registration_number',$request['user_registration'])->first();
         $book = ModelBook::where('book_registration',$request['book_registration'])->first();
-
         $loan->user_id = $user->id;
         $loan->book_id = $book->id;
         $loan->delivery_date = $request['delivery_date'];
+        $loan->loan_status = $request['loan_status'];
         $loan->save();
         return Redirect::route('loan.index')
         ->with('sucess',"Alterado com sucesso");

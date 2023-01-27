@@ -5,7 +5,7 @@
 @vite(['resources/css/createUser.css'])
 
 <div >
-    <form
+    <form class="all-form"
     method="POST"
     enctype="multipart/form-data"
     action={{route('book.update', $book->id)}}
@@ -14,7 +14,7 @@
     @method('put')
 
         <h1>Alterar livro</h1>
-        <div>
+
             <label for="name">Nome</label>
                 <input
                 type="text"
@@ -24,11 +24,11 @@
                 value={{$book->book_name}}
                 >
                 @error('book_name')
-                {{$message}}
+                <p class='erro' >{{$message}}</p>
                 @enderror
-        </div>
+        
 
-        <div>
+
             <label for="author">Autor</label>
                 <input
                 type="text"
@@ -38,11 +38,11 @@
                 value={{$book->author}}
                 >
                 @error('author')
-                {{$message}}
+                <p class='erro' >{{$message}}</p>
                 @enderror
-        </div>
+        
 
-        <div>
+
             <label for="book_registration">Numero de registro</label>
                 <input
                 type="text"
@@ -52,9 +52,9 @@
                 value={{$book->book_registration}}
                 >
                 @error('book_registration')
-                {{$message}}
+                <p class='erro' >{{$message}}</p>
                 @enderror
-        </div>
+        
 
         <select name="available" >
             <option value=0>Emprestado </option>

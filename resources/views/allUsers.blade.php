@@ -4,20 +4,23 @@
 
 <div>
     @include('components.message')
-    <a href={{route('user.create')}}>Novo usuario</a>
-    @foreach ($users as $user)
-    <div>
-        <p>{{$user->user_name}}</p>
-        <p>{{$user->email}}</p>
-        <p>{{$user->registration_number }}</p>
-        <a href={{route('user.edit',$user->id)}}>Alterar</a>
-        <form method="POST" enctype="multipart/form-data" action={{route('user.destroy',$user->id)}}>
-        @csrf
-        @method('DELETE')
-            <button type="submit">Delete</button>
-        </form>
-
+    <a class="create-new" href={{route('user.create')}}>Adicionar usuario</a>
+    <div class="cont-card">
+        @foreach ($users as $user)
+        <div class="card">
+            <h4>{{$user->user_name}}</h4>
+            <p>{{$user->email}}</p>
+            <p>{{$user->registration_number }}</p>
+            <div class="cont-button">
+                <a class="update"href={{route('user.edit',$user->id)}}>Alterar</a>
+                <form method="POST" enctype="multipart/form-data" action={{route('user.destroy',$user->id)}}>
+                @csrf
+                @method('DELETE')
+                    <button  class="delete" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        @endforeach
     </div>
-    @endforeach
 </div>
 @endsection()

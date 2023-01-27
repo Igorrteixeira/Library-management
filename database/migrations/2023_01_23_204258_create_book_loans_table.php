@@ -24,7 +24,7 @@ return new class extends Migration
             ->onUpdate('CASCADE')
             ->onDelete('CASCADE');
             $table->date('delivery_date')->nullable();
-            $table->boolean("loan_status")->default(false);
+            $table->enum("loan_status",['Atrazado','Entregue','Em dia'])->default('Em dia');
             $table->timestamps();
 
         });

@@ -1,3 +1,3 @@
 @if (session('sucess'))
-    <p>{{session('sucess')}}</p>
+    <h2 style="color: green; margin:50px"  >{{session('sucess')}}</h2>
 @endif

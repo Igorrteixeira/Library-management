@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\HasBook;
-use App\Rules\HasUser;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoanFormRequest extends FormRequest
+class BookFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +13,6 @@ class LoanFormRequest extends FormRequest
      */
     public function authorize()
     {
-
         return true;
     }
 
@@ -27,10 +24,11 @@ class LoanFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_registration'=>['required',new HasUser],
-            'book_registration'=>['required',new HasBook],
-            'delivery_date'=>'date|required',
-
+            'book_registration'=>'required|numeric|digits_between:5,10',
+            'genre_id'=>'required|numeric|max:5',
+            'available'=>'required',
+            'book_name'=>'required|string|min:3|max:30',
+            'author'=>'required|string|min:3|max:20',
         ];
     }
 }

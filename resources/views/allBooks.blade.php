@@ -4,32 +4,34 @@
 
 <div>
     @include('components.message')
-    <a href={{route('book.create')}}>Adicionar Livro</a>
+    <a class="create-new" href={{route('book.create')}}>Adicionar Livro</a>
 
-    <form action={{route('book.index')}} method="GET">
+    <form class="filter" action={{route('book.index')}} method="GET">
         <button name="search">Todos</button>
         @foreach ($genres as $genre)
         <button value={{$genre->id}} name="search">{{$genre->genre}}</button>
         @endforeach
     </form>
 
+    <div class="cont-card">
     @foreach ($books as $book)
-    <div>
-        <p>{{$book->book_name}}</p>
-        <p>{{$book->author}}</p>
-        <p>{{$book->genre->genre}}</p>
-        <p>{{$book->book_registration}}</p>
-        <p>{{!$book->available ?"Emprestado" : "Disponivel"}}</p>
-        <a href={{route('book.edit',$book->id)}}>Alterar</a>
-
-        <form method="POST" enctype="multipart/form-data"
-        action={{route('book.destroy',$book->id)}}>
-        @csrf
-        @method('DELETE')
-            <button type="submit">Delete</button>
-        </form>
-
-    </div>
+        <div class="card">
+            <h4>{{$book->book_name}}</h4>
+            <p>{{$book->author}}</p>
+            <p>{{$book->genre->genre}}</p>
+            <p>{{$book->book_registration}}</p>
+            <p>{{!$book->available ?"Emprestado" : "Disponivel"}}</p>
+            <div class="cont-button">
+                <a class="update" href={{route('book.edit',$book->id)}}>Alterar</a>
+                <form method="POST" enctype="multipart/form-data"
+                action={{route('book.destroy',$book->id)}}>
+                @csrf
+                @method('DELETE')
+                    <button class="delete" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
     @endforeach
+    </div>
 </div>
 @endsection()

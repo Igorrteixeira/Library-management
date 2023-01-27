@@ -5,7 +5,8 @@
 @vite(['resources/css/createUser.css'])
 
 <div >
-    <form action={{route('loan.store')}} method="POST">
+    <form class="all-form"
+     action={{route('loan.store')}} method="POST">
     @csrf
             <h1>Novo emprestimo</h1>
         <label for="user_registration">Registro do usuario</label>
@@ -17,7 +18,7 @@
             value={{old('user_registration')}}
             >
             @error('user_registration')
-            {{$message}}
+            <p class='erro' >{{$message}}</p>
             @enderror
 
         <label for="delivery_date">Data de entrega</label>
@@ -27,7 +28,7 @@
             value={{old('delivery_date')}}
             >
             @error('delivery_date')
-            {{$message}}
+            <p class='erro' >{{$message}}</p>
             @enderror
 
         <label for="book_registration">Registro do livro</label>
@@ -37,7 +38,7 @@
         value={{old('book_registration')}}
         >
         @error('book_registration')
-        {{$message}}
+        <p class='erro' >{{$message}}</p>
         @enderror
 
             <button type="submit">Criar emprestimo</button>

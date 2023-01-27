@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserFormRequest;
+use App\Http\Requests\UserUpdateFormRequest;
 use App\Models\User as ModelsUser;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
@@ -18,20 +19,14 @@ class UserController extends Controller
         ]);
     }
 
-
     public function create()
     {
         return view('createUsers');
     }
 
-    public function store(Request $request)
+    public function store(UserFormRequest $request)
     {
-        $input = $request->validate([
-            'user_name'=>'required|string|min:3|max:40',
-            'registration_number'=>'required|min:5|max:6|',
-            'email'=>'required|email:rfc,dns|unique:users,email'
-        ]);
-        ModelsUser::create($input);
+        ModelsUser::create($request->all());
         return  Redirect::route('user.index')
         ->with('sucess',"Criado com sucesso");
     }
@@ -49,14 +44,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, ModelsUser $user)
+    public function update(UserUpdateFormRequest $request, ModelsUser $user)
     {
-        $input = $request->validate([
-            'user_name'=>'required|string|min:3|max:40',
-            'registration_number'=>'required|min:5|max:6|',
-            'email'=>'required|email:rfc,dns'
-        ]);
-        $user->fill($input);
+        $user->fill($request->all());
         $user->save();
         return  Redirect::route('user.index')
         ->with('sucess',"Alterado com sucesso");

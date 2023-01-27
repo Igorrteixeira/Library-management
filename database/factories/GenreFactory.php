@@ -17,8 +17,11 @@ class GenreFactory extends Factory
      */
     public function definition()
     {
+        $genre = ['oi','olll'];
 
-
+        return [
+            
+        ];
     }
 
 }

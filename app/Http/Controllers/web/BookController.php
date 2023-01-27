@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\web;
 
-
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookFormRequest;
 use App\Models\Book as ModelBook;
 use App\Models\Genre;
 use Illuminate\Http\Request;
@@ -35,24 +35,11 @@ class BookController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(BookFormRequest $request)
     {
-        $input = $request->validate([
-            'book_registration'=>'required|numeric|digits_between:5,10|unique:books,book_registration',
-            'genre_id'=>'required|numeric|max:5',
-            'available'=>'required',
-            'book_name'=>'required|string|min:3|max:30',
-            'author'=>'required|string|min:3|max:20',
-        ]);
-
-        ModelBook::create($input);
+        ModelBook::create($request->all());
         return  Redirect::route('book.index')
         ->with('sucess',"Criado com sucesso");
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit(ModelBook $book)
@@ -65,18 +52,9 @@ class BookController extends Controller
         ]);
     }
 
-    public function update(Request $request, ModelBook $book)
+    public function update(BookFormRequest $request, ModelBook $book)
     {
-
-        $input = $request->validate([
-            'genre_id'=>'required|numeric',
-            'available'=>'required',
-            'book_name'=>'required|string|min:3|max:20',
-            'author'=>'required|string|min:3|max:20',
-            'book_registration'=>'required|numeric|digits_between:5,10'
-        ]);
-
-        $book->fill($input);
+        $book->fill($request->all());
         $book->save();
         return Redirect::route('book.index')
         ->with('sucess',"Alterado com sucesso");

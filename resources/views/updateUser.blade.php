@@ -6,7 +6,7 @@
 
 <div >
 
-    <form
+    <form class="all-form"
     method="POST"
     enctype="multipart/form-data"
     action={{route('user.update',$user->id)}}
@@ -22,7 +22,7 @@
             value={{$user->user_name}}
             >
             @error('user_name')
-            {{$message}}
+            <p class='erro' >{{$message}}</p>
             @enderror
 
         <label for="email">Email</label>
@@ -33,7 +33,7 @@
             value={{$user->email}}
             >
             @error('email')
-            {{$message}}
+            <p class='erro' >{{$message}}</p>
             @enderror
 
         <label for="registration_number">Numero de registro</label>
@@ -44,7 +44,7 @@
             value={{$user->registration_number}}
             >
             @error('registration_number')
-            {{$message}}
+            <p class='erro' >{{$message}}</p>
             @enderror
 
             <button type="submit">Alterar usuario</button>

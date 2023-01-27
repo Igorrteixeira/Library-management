@@ -2,10 +2,8 @@
 @section('title','Create user')
 @section('content')
 
-@vite(['resources/css/createUser.css'])
-
 <div >
-    <form action={{route('user.store')}} method="POST">
+    <form class="all-form" action={{route('user.store')}} method="POST">
     @csrf
             <h1>Criar User</h1>
         <label for="name">Nome</label>
@@ -16,7 +14,7 @@
             value={{old('user_name')}}
             >
             @error('user_name')
-            {{$message}}
+            <p class='erro' >{{$message}}</p>
             @enderror
 
         <label for="email">Email</label>
@@ -27,7 +25,7 @@
             value={{old('email')}}
             >
             @error('email')
-            {{$message}}
+            <p class='erro' >{{$message}}</p>
             @enderror
 
         <label for="registration_number">Numero de registro</label>
@@ -38,7 +36,7 @@
             value={{old('registration_number')}}
             >
             @error('registration_number')
-            {{$message}}
+            <p class='erro' >{{$message}}</p>
             @enderror
 
             <button>Criar usuario</button>

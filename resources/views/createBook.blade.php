@@ -5,10 +5,10 @@
 @vite(['resources/css/createUser.css'])
 
 <div >
-    <form action={{route('book.store')}} method="POST">
+    <form class="all-form" action={{route('book.store')}} method="POST">
     @csrf
         <h1>Adicionar livro</h1>
-        <div>
+
             <label for="name">Nome</label>
                 <input
                 type="text"
@@ -18,11 +18,11 @@
                 value={{old('book_name')}}
                 >
                 @error('book_name')
-                {{$message}}
+                <p class='erro' >{{$message}}</p>
                 @enderror
-        </div>
 
-        <div>
+
+
             <label for="author">Autor</label>
                 <input
                 type="text"
@@ -32,11 +32,11 @@
                 value={{old('author')}}
                 >
                 @error('author')
-                {{$message}}
+                <p class='erro' >{{$message}}</p>
                 @enderror
-        </div>
 
-        <div>
+
+
             <label for="book_registration">Numero de registro</label>
                 <input
                 type="text"
@@ -46,9 +46,9 @@
                 value={{old('book_registration')}}
                 >
                 @error('book_registration')
-                {{$message}}
+                <p class='erro' >{{$message}}</p>
                 @enderror
-        </div>
+        
 
         <select name="available" >
             <option value=1>Disponivel</option>
